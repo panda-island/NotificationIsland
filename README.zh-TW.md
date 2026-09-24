@@ -45,6 +45,7 @@ Live Activity 會在啟動後約 **5 秒自動結束**。
 | 📈 | 投資先生 |
 | 🏦 | 台新銀行 |
 | 💚 | StressWatch |
+| ⚫ | Threads |
 
 圖示會顯示在 Dynamic Island 中，用來模擬對應 App 的通知外觀。
 

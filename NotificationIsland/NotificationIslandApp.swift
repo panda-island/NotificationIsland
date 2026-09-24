@@ -56,6 +56,9 @@ struct NotificationIslandApp: App {
             openApp("itms-apps://itunes.apple.com/app/id6444737095",
                     fallback: "https://apps.apple.com/tw/app/id6444737095")
 
+        case "threads":
+            openApp("https://www.threads.com/", fallback: "https://www.threads.com/")
+
         case "reddit":
             openApp("reddit://", fallback: "https://www.reddit.com/")
 

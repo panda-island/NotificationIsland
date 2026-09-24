@@ -43,6 +43,7 @@ The Live Activity automatically ends after approximately **5 seconds**.
 | 📈 | Investment Master |
 | 🏦 | Taishin Bank |
 | 💚 | StressWatch |
+| ⚫ | Threads |
 
 The selected icon is displayed on the Dynamic Island to simulate the appearance of a notification from the corresponding app.
 

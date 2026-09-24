@@ -13,6 +13,7 @@ enum NotificationIcon: String, AppEnum {
     case taishin
     case stressWatch
     case reddit
+    case threads
 
     static var typeDisplayRepresentation: TypeDisplayRepresentation {
         TypeDisplayRepresentation(name: "通知圖示")
@@ -30,7 +31,8 @@ enum NotificationIcon: String, AppEnum {
             .investment: DisplayRepresentation(title: "投資先生"),
             .taishin: DisplayRepresentation(title: "台新銀行"),
             .stressWatch: DisplayRepresentation(title: "StressWatch"),
-            .reddit: DisplayRepresentation(title: "Reddit")
+            .reddit: DisplayRepresentation(title: "Reddit"),
+            .threads: DisplayRepresentation(title: "Threads")
         ]
     }
 }

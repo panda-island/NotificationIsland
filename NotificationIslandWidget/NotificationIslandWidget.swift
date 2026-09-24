@@ -112,6 +112,7 @@ struct NotificationIslandWidget: Widget {
         case "taishin": return "Taishin"
         case "stressWatch": return "StressWatch"
         case "reddit": return "Reddit"
+        case "threads": return "Threads"
         default: return "LINE"
         }
     }
@@ -129,6 +130,7 @@ struct NotificationIslandWidget: Widget {
         case "taishin": return "台新銀行"
         case "stressWatch": return "StressWatch"
         case "reddit": return "Reddit"
+        case "threads": return "Threads"
         default: return "LINE"
         }
     }
@@ -147,6 +149,7 @@ struct NotificationIslandWidget: Widget {
         case "taishin": return URL(string: "taishin://")
         case "stressWatch": return URL(string: "stresswatch://")
         case "reddit": return URL(string: "reddit://")
+        case "threads": return URL(string: "notificationisland://threads")
         default: return URL(string: "line://")
         }
     }

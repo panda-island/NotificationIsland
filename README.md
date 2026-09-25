@@ -9,7 +9,7 @@ NotificationIsland is an experimental project built with **SwiftUI, ActivityKit,
 
 You can trigger the App Intent from the **Shortcuts** app and display a custom title, message, and app icon on the Dynamic Island.
 
-> ⚠️ **Currently supports iOS 27 Developer Beta 5 (DB5) ONLY**
+> ⚠️ **Currently supports iOS 27 **
 >
 > Other iOS versions have not been tested yet.
 
@@ -59,12 +59,12 @@ https://www.icloud.com/shortcuts/022b6230e2f149198026cb6d905cfaa1
 
 ## 📱 Requirements
 
-- **iOS 27 Developer Beta 5 (DB5)**
+- **iOS 27**
 - An iPhone with Dynamic Island support
 - An Apple Developer account for signing / sideloading
 - Windows users can use GitHub Actions to build an unsigned IPA, then sign and install it using Sideloadly, iLoader, or another legitimate iOS sideloading/signing tool
 
-> ⚠️ This project currently targets **iOS 27 Developer Beta 5**. Other versions are not guaranteed to work.
+> ⚠️ This project currently targets **iOS 27**. Other versions are not guaranteed to work.
 
 ## 📲 Installing the Unsigned IPA
 

@@ -9,7 +9,7 @@ NotificationIsland 是一個以 **SwiftUI、ActivityKit、WidgetKit、App Intent
 
 你可以從「捷徑」自動化執行 App Intent，把標題、訊息與 App 圖示顯示到 Dynamic Island。
 
-> ⚠️ **目前僅支援 iOS 27 Developer Beta 5 (DB5)**
+> ⚠️ **目前僅支援 iOS 27**
 >
 > 目前尚未測試其他 iOS 版本。
 
@@ -61,12 +61,12 @@ https://www.icloud.com/shortcuts/022b6230e2f149198026cb6d905cfaa1
 
 ## 📱 系統需求
 
-- **iOS 27 Developer Beta 5 (DB5)**
+- **iOS 27**
 - 支援 Dynamic Island 的 iPhone
 - Apple Developer 帳號（自行簽署／側載時使用）
 - Windows 使用者可以使用 GitHub Actions 建立 unsigned IPA，再透過 Sideloadly、iLoader 等工具自行簽署安裝
 
-> ⚠️ 本專案目前以 **iOS 27 Developer Beta 5** 為目標版本，其他版本不保證可以正常使用。
+> ⚠️ 本專案目前以 **iOS 27** 為目標版本，其他版本不保證可以正常使用。
 
 ## 📲 安裝 unsigned IPA
 

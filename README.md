@@ -57,7 +57,7 @@ Live Activity 會在啟動後約 **5 秒自動結束**。
 
 ## 🔗 捷徑
 
-https://www.icloud.com/shortcuts/022b6230e2f149198026cb6d905cfaa1
+https://www.icloud.com/shortcuts/7b62f41705b443ae96eff4c111fb9c37
 
 ## 📱 系統需求
 

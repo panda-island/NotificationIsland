@@ -94,37 +94,37 @@ struct ShowMessageIntent: LiveActivityIntent {
             style: .standard
         )
 
-        // iOS displays a Live Activity's expanded presentation briefly for an alerting update.
-        // Trigger one immediately after starting, then keep the activity alive for 5 seconds.
-        // The system still controls the exact expanded-to-compact animation timing.
-        // Experimental: repeated silent updates. These updates do NOT use
-        // alertConfiguration, so they should not repeatedly trigger a new alert.
-        for tick in 0..<10 {
-            let updatedState = MessageActivityAttributes.ContentState(
-                title: safeTitle,
-                message: safeMessage,
-                icon: icon.rawValue,
-                tick: tick
-            )
-
-            await activity.update(
-                ActivityContent(
-                    state: updatedState,
-                    staleDate: nil,
-                    relevanceScore: 100
+        // Don't keep the App Intent running during the five-second display period.
+        // Returning immediately lets a new Shortcut invocation end this activity
+        // and replace it without waiting for the previous notification to expire.
+        Task {
+            for tick in 0..<10 {
+                let updatedState = MessageActivityAttributes.ContentState(
+                    title: safeTitle,
+                    message: safeMessage,
+                    icon: icon.rawValue,
+                    tick: tick
                 )
+
+                await activity.update(
+                    ActivityContent(
+                        state: updatedState,
+                        staleDate: nil,
+                        relevanceScore: 100
+                    )
+                )
+
+                try? await Task.sleep(for: .milliseconds(500))
+            }
+
+            await activity.end(
+                ActivityContent(
+                    state: state,
+                    staleDate: nil
+                ),
+                dismissalPolicy: ActivityUIDismissalPolicy.immediate
             )
-
-            try? await Task.sleep(for: .milliseconds(500))
         }
-
-        await activity.end(
-            ActivityContent(
-                state: state,
-                staleDate: nil
-            ),
-            dismissalPolicy: ActivityUIDismissalPolicy.immediate
-        )
 
         return .result()
     }

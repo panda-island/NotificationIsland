@@ -11,3 +11,109 @@ struct MessageActivityAttributes: ActivityAttributes {
 
     var id: String
 }
+
+struct NotificationRecord: Codable, Identifiable, Equatable, Sendable {
+    let id: UUID
+    let title: String
+    let message: String
+    let icon: String
+    let createdAt: Date
+}
+
+struct NotificationHistorySnapshot: Equatable, Sendable {
+    let records: [NotificationRecord]
+    let retentionDays: Int
+}
+
+actor NotificationHistoryStore {
+    static let shared = NotificationHistoryStore()
+
+    private enum Keys {
+        static let records = "notificationHistory.records"
+        static let retentionDays = "notificationHistory.retentionDays"
+    }
+
+    private let defaults = UserDefaults.standard
+    private let defaultRetentionDays = 7
+
+    private init() {
+        if defaults.object(forKey: Keys.retentionDays) == nil {
+            defaults.set(defaultRetentionDays, forKey: Keys.retentionDays)
+        }
+    }
+
+    func record(title: String, message: String, icon: String, now: Date = Date()) {
+        var records = prunedRecords(from: loadRecords(), now: now)
+        records.insert(
+            NotificationRecord(
+                id: UUID(),
+                title: title,
+                message: message,
+                icon: icon,
+                createdAt: now
+            ),
+            at: 0
+        )
+        save(records)
+    }
+
+    func snapshot(now: Date = Date()) -> NotificationHistorySnapshot {
+        let storedRecords = loadRecords()
+        let records = prunedRecords(from: storedRecords, now: now)
+
+        if records != storedRecords {
+            save(records)
+        }
+
+        return NotificationHistorySnapshot(
+            records: records,
+            retentionDays: retentionDays
+        )
+    }
+
+    func setRetentionDays(_ days: Int, now: Date = Date()) -> NotificationHistorySnapshot {
+        defaults.set(min(max(days, 0), 365), forKey: Keys.retentionDays)
+        return snapshot(now: now)
+    }
+
+    func delete(id: NotificationRecord.ID, now: Date = Date()) -> NotificationHistorySnapshot {
+        var records = prunedRecords(from: loadRecords(), now: now)
+        records.removeAll { $0.id == id }
+        save(records)
+        return NotificationHistorySnapshot(records: records, retentionDays: retentionDays)
+    }
+
+    func clear() -> NotificationHistorySnapshot {
+        save([])
+        return NotificationHistorySnapshot(records: [], retentionDays: retentionDays)
+    }
+
+    private var retentionDays: Int {
+        guard defaults.object(forKey: Keys.retentionDays) != nil else {
+            return defaultRetentionDays
+        }
+        return min(max(defaults.integer(forKey: Keys.retentionDays), 0), 365)
+    }
+
+    private func loadRecords() -> [NotificationRecord] {
+        guard let data = defaults.data(forKey: Keys.records),
+              let records = try? JSONDecoder().decode([NotificationRecord].self, from: data) else {
+            return []
+        }
+        return records.sorted { $0.createdAt > $1.createdAt }
+    }
+
+    private func save(_ records: [NotificationRecord]) {
+        guard let data = try? JSONEncoder().encode(records) else { return }
+        defaults.set(data, forKey: Keys.records)
+    }
+
+    private func prunedRecords(from records: [NotificationRecord], now: Date) -> [NotificationRecord] {
+        let days = retentionDays
+        guard days > 0,
+              let cutoffDate = Calendar.current.date(byAdding: .day, value: -days, to: now) else {
+            return records
+        }
+        return records.filter { $0.createdAt >= cutoffDate }
+    }
+}

@@ -94,6 +94,12 @@ struct ShowMessageIntent: LiveActivityIntent {
             style: .standard
         )
 
+        await NotificationHistoryStore.shared.record(
+            title: safeTitle,
+            message: safeMessage,
+            icon: icon.rawValue
+        )
+
         // Don't keep the App Intent running during the five-second display period.
         // Returning immediately lets a new Shortcut invocation end this activity
         // and replace it without waiting for the previous notification to expire.

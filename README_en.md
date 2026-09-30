@@ -29,6 +29,16 @@ You can display:
 
 The Live Activity automatically ends after approximately **5 seconds**.
 
+### Notification History
+
+After a Dynamic Island message is displayed successfully, the app automatically saves its title, message, icon, and timestamp.
+
+- View notification history in the app
+- Swipe to delete an individual record
+- Clear all records at once
+- Enable or disable automatic deletion
+- Choose a retention period from **1 to 365 days** (7 days by default)
+
 ### App Icons
 
 | Icon | App |

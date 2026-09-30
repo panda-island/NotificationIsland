@@ -29,6 +29,16 @@ NotificationIsland 是一個以 **SwiftUI、ActivityKit、WidgetKit、App Intent
 
 Live Activity 會在啟動後約 **5 秒自動結束**。
 
+### 通知紀錄
+
+每次成功顯示 Dynamic Island 訊息後，App 會自動保存通知標題、內容、圖示與時間。
+
+- 在 App 內查看歷史通知
+- 向左滑動刪除單筆紀錄
+- 一次清除全部紀錄
+- 開啟或關閉自動刪除
+- 自訂 **1～365 天**的保留時間（預設 7 天）
+
 ### App 圖示
 
 目前可以在捷徑中選擇：

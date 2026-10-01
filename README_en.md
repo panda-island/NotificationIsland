@@ -1,161 +1,85 @@
 # NotificationIsland
-<img width="500" height="360" alt="808422338 946440" src="https://github.com/user-attachments/assets/44865a10-4e10-4e5c-b67d-d1fe8e9c9745" />
-<img width="500" height="360" alt="808422338 893899" src="https://github.com/user-attachments/assets/d20cbafa-9b03-4aa1-966b-f21f2b786641" />
 
+<p align="center">
+  <img src="./NotificationIsland/Assets.xcassets/AppIcon.appiconset/AppIcon.png" width="128" alt="NotificationIsland App Icon" />
+</p>
 
-> An experimental iOS Live Activity project for displaying custom messages on the iPhone Dynamic Island.
+> Display custom notifications on the iPhone Dynamic Island from Shortcuts, while keeping a searchable history inside the app.
 
-NotificationIsland is an experimental project built with **SwiftUI, ActivityKit, WidgetKit, and App Intents**.
+[繁體中文](./README.md) · [Download the latest IPA](https://github.com/panda-island/NotificationIsland/releases/latest) · [Add the Shortcut](https://www.icloud.com/shortcuts/c50df63435ea4f5f927447d1431173a1)
 
-You can trigger the App Intent from the **Shortcuts** app and display a custom title, message, and app icon on the Dynamic Island.
+> [!IMPORTANT]
+> NotificationIsland currently supports **iOS 27 or later** and is recommended for iPhones with Dynamic Island.
 
-> ⚠️ **Currently supports iOS 27 **
->
-> Other iOS versions have not been tested yet.
+## 📲 Installation
 
-## ✨ Features
+### 1. Download the IPA
 
-### Dynamic Island
+Open [GitHub Releases](https://github.com/panda-island/NotificationIsland/releases/latest) and download the latest `NotificationIsland-unsigned.ipa`.
 
-Run the Shortcut action:
+### 2. Sign and install it
 
-**「顯示 Dynamic Island 訊息」**
-
-You can display:
-
-- A notification title
-- A notification message
-- A selectable app icon
-
-The Live Activity automatically ends after approximately **5 seconds**.
-
-### Notification History
-
-Whenever the Shortcut sends a message, the app automatically saves its title, message, icon, and timestamp.
-
-- View notification history in the app
-- Disable Dynamic Island presentation while continuing to save notification history
-- Swipe to delete an individual record
-- Clear all records at once
-- Enable or disable automatic deletion
-- Choose a retention period from **1 to 365 days** (7 days by default)
-
-### App Icons
-
-| Icon | App |
-|---|---|
-| 🟢 | LINE |
-| 🟣 | Instagram |
-| 📧 | Gmail |
-| 💬 | Messages |
-| 🪩 | Retro |
-| 🌱 | Pikmin Bloom |
-| 🦉 | Duolingo |
-| 📈 | Investment Master |
-| 🏦 | Taishin Bank |
-| 💚 | StressWatch |
-| ⚫ | Threads |
-
-The selected icon is displayed on the Dynamic Island to simulate the appearance of a notification from the corresponding app.
-
-### Tapping the Dynamic Island
-
-Currently, tapping the Dynamic Island first opens **NotificationIsland**, which then attempts to open the corresponding app.
-
-The behavior may vary depending on each app's URL Scheme, Universal Link support, or iOS system restrictions.
-
-## 🔗 Shortcut
-
-Tap **Add Shortcut** in the app, or open:
-
-https://www.icloud.com/shortcuts/c50df63435ea4f5f927447d1431173a1
-
-> This shortcut requires iOS 27 or later. Earlier versions show a compatibility warning and can take the user to Software Update.
-
-## 📱 Requirements
-
-- **iOS 27**
-- An iPhone with Dynamic Island support
-- An Apple Developer account for signing / sideloading
-- Windows users can use GitHub Actions to build an unsigned IPA, then sign and install it using Sideloadly, iLoader, or another legitimate iOS sideloading/signing tool
-
-> ⚠️ This project currently targets **iOS 27**. Other versions are not guaranteed to work.
-
-## 📲 Installing the Unsigned IPA
-
-The IPA produced by GitHub Actions is an **unsigned IPA** and cannot be installed like a normal App Store application.
-
-You need to sign it with your own Apple ID using a signing tool such as:
+The release contains an **unsigned IPA**, so it cannot be installed like an App Store app. Sign it with your own Apple ID using one of the following legitimate sideloading tools:
 
 - Sideloadly
 - iLoader
-- Other legitimate iOS sideloading/signing tools
+- Another iOS-compatible IPA signing tool
 
-When using a free Apple Developer account, signing duration, App ID limits, and other restrictions are determined by Apple's developer system.
+Signing duration, App ID limits, and re-signing requirements for free Apple Developer accounts are controlled by Apple's developer system.
 
-### Windows Users
+### 3. Add the Shortcut
 
-The project can be developed on Windows and built using a **GitHub Actions macOS Runner**.
+After installing and opening the app:
+
+1. Tap **Add Shortcut** inside NotificationIsland.
+2. Add **Show Dynamic Island Message** from the iCloud Shortcut page.
+3. Configure the title, message, and notification icon in the Shortcuts app.
+4. Run the Shortcut to display the notification on Dynamic Island.
+
+You can also open it directly: [Add the NotificationIsland Shortcut](https://www.icloud.com/shortcuts/c50df63435ea4f5f927447d1431173a1)
+
+## 🎬 Preview
+
+<p align="center">
+  <img src="./docs/media/notification-history.jpg" width="380" alt="NotificationIsland settings and notification history" />
+</p>
+
+▶️ [Watch the Dynamic Island demo video (MOV)](./docs/media/notification-island-demo.mov)
+
+## ✨ App Features
+
+- **Dynamic Island notifications:** Display a custom title, message, and app icon.
+- **Automatic five-second dismissal:** The Live Activity is removed after approximately five seconds.
+- **Immediate replacement:** A new notification removes the previous Dynamic Island and displays the latest content.
+- **Display toggle:** Disable Dynamic Island while continuing to save notification history.
+- **Notification history:** Save titles, messages, icons, and timestamps; delete individual records or clear everything.
+- **Automatic cleanup:** Disable automatic deletion or retain records for 1–365 days; the default is seven days.
+- **Multiple notification icons:** LINE, Instagram, Gmail, Messages, Retro, Pikmin Bloom, Duolingo, Investment Master, Taishin Bank, StressWatch, Reddit, and Threads.
+- **Tap to open:** Tapping a Live Activity attempts to open the app represented by its selected icon.
+
+## 📱 Requirements
+
+- iOS 27 or later
+- An iPhone with Dynamic Island is recommended
+- An Apple ID and compatible signing tool when installing the unsigned IPA
+
+## ⚠️ Limitations
+
+NotificationIsland is an experimental project built with SwiftUI, ActivityKit, WidgetKit, App Intents, and Shortcuts. It is not an official notification tool from LINE, Instagram, Gmail, Apple, or any other third-party service.
+
+The project cannot read private system notifications from other apps. Notification content must be supplied by the user through Shortcuts:
 
 ```text
-Windows
-  ↓
-GitHub
-  ↓
-GitHub Actions / macOS Runner
-  ↓
-Unsigned IPA
-  ↓
-Sideloadly / iLoader
-  ↓
-iPhone
+Shortcuts → NotificationIsland → Live Activity → Dynamic Island
 ```
 
-## ⚠️ Current Limitations
+Whether tapping a Live Activity can open another app depends on that app's URL scheme, Universal Link support, and iOS restrictions.
 
-This is an experimental project. It is **not an official notification tool** from LINE, Instagram, Gmail, Apple, Retro, Pikmin Bloom, Duolingo, Investment Master, Taishin Bank, or StressWatch.
+## 🛠️ Building from Source
 
-The app icons are currently used only to simulate the appearance of notifications from different apps.
+Open `NotificationIsland.xcodeproj` in Xcode to build the project. Windows users can also fork the repository and use the included GitHub Actions macOS runner to produce an unsigned IPA for signing and installation.
 
-This project **cannot directly read private system notification contents** from LINE, Instagram, Gmail, Messages, or other third-party apps.
-
-The current workflow is:
-
-```text
-Shortcuts
- ↓
-NotificationIsland
- ↓
-Live Activity
- ↓
-Dynamic Island
-```
-
-It is **not**:
-
-```text
-LINE / Instagram / Gmail receives a real notification
- ↓
-NotificationIsland automatically reads the notification
- ↓
-Dynamic Island
-```
-
-The latter requires notification or automation capabilities permitted by iOS. A normal App Intent cannot simply read private notification data belonging to other apps.
-
-## 🛠️ Tech Stack
-
-- Swift
-- SwiftUI
-- ActivityKit
-- WidgetKit
-- App Intents
-- Shortcuts
-- Live Activities
-
-## ⭐ Credits
-
-Built primarily with Apple's ActivityKit, WidgetKit, App Intents, SwiftUI, and Shortcuts / App Intents.
+Core technologies: Swift, SwiftUI, ActivityKit, WidgetKit, App Intents, Shortcuts, and Live Activities.
 
 ## 💖 Sponsor
 

@@ -1,163 +1,85 @@
 # NotificationIsland
-<img width="500" height="360" alt="808422338 946440" src="https://github.com/user-attachments/assets/44865a10-4e10-4e5c-b67d-d1fe8e9c9745" />
-<img width="500" height="360" alt="808422338 893899" src="https://github.com/user-attachments/assets/d20cbafa-9b03-4aa1-966b-f21f2b786641" />
 
+<p align="center">
+  <img src="./NotificationIsland/Assets.xcassets/AppIcon.appiconset/AppIcon.png" width="128" alt="NotificationIsland App Icon" />
+</p>
 
-> 在 iPhone Dynamic Island 上顯示自訂訊息的 iOS Live Activity 專案。
+> 使用「捷徑」把自訂通知顯示在 iPhone Dynamic Island，並在 App 內保留通知紀錄。
 
-NotificationIsland 是一個以 **SwiftUI、ActivityKit、WidgetKit、App Intents** 製作的實驗性專案。
+[English](./README_en.md) · [下載最新版 IPA](https://github.com/panda-island/NotificationIsland/releases/latest) · [加入捷徑](https://www.icloud.com/shortcuts/c50df63435ea4f5f927447d1431173a1)
 
-你可以從「捷徑」自動化執行 App Intent，把標題、訊息與 App 圖示顯示到 Dynamic Island。
+> [!IMPORTANT]
+> 目前支援 **iOS 27 或以上版本**，並建議使用配備 Dynamic Island 的 iPhone。
 
-> ⚠️ **目前僅支援 iOS 27**
->
-> 目前尚未測試其他 iOS 版本。
+## 📲 安裝教學
 
-## ✨ 目前功能
+### 1. 下載 IPA
 
-### Dynamic Island
+前往 [GitHub Releases](https://github.com/panda-island/NotificationIsland/releases/latest)，下載最新版 `NotificationIsland-unsigned.ipa`。
 
-執行捷徑中的：
+### 2. 簽署並安裝
 
-**「顯示 Dynamic Island 訊息」**
-
-即可顯示：
-
-- 通知標題
-- 通知訊息
-- 選擇 App 圖示
-
-Live Activity 會在啟動後約 **5 秒自動結束**。
-
-### 通知紀錄
-
-每次捷徑送出訊息後，App 都會自動保存通知標題、內容、圖示與時間。
-
-- 在 App 內查看歷史通知
-- 可關閉 Dynamic Island 顯示，只保存通知紀錄
-- 向左滑動刪除單筆紀錄
-- 一次清除全部紀錄
-- 開啟或關閉自動刪除
-- 自訂 **1～365 天**的保留時間（預設 7 天）
-
-### App 圖示
-
-目前可以在捷徑中選擇：
-
-| 圖示 | App |
-|---|---|
-| 🟢 | LINE |
-| 🟣 | Instagram |
-| 📧 | Gmail |
-| 💬 | 訊息 |
-| 🪩 | Retro |
-| 🌱 | Pikmin Bloom |
-| 🦉 | Duolingo |
-| 📈 | 投資先生 |
-| 🏦 | 台新銀行 |
-| 💚 | StressWatch |
-| ⚫ | Threads |
-
-圖示會顯示在 Dynamic Island 中，用來模擬對應 App 的通知外觀。
-
-### 點擊 Dynamic Island
-
-目前點擊 Dynamic Island 會先開啟 **NotificationIsland**，再依照所選圖示嘗試跳轉到對應 App。
-
-不同 App 的 URL Scheme、Universal Link 或 iOS 系統限制可能造成跳轉行為不同。
-
-## 🔗 捷徑
-
-可以直接在 App 內點擊「新增捷徑」，或開啟：
-
-https://www.icloud.com/shortcuts/c50df63435ea4f5f927447d1431173a1
-
-> 此捷徑需要 iOS 27 或以上版本。較舊版本會先顯示提示，並可前往系統軟體更新頁。
-
-## 📱 系統需求
-
-- **iOS 27**
-- 支援 Dynamic Island 的 iPhone
-- Apple Developer 帳號（自行簽署／側載時使用）
-- Windows 使用者可以使用 GitHub Actions 建立 unsigned IPA，再透過 Sideloadly、iLoader 等工具自行簽署安裝
-
-> ⚠️ 本專案目前以 **iOS 27** 為目標版本，其他版本不保證可以正常使用。
-
-## 📲 安裝 unsigned IPA
-
-GitHub Actions 產生的是 **unsigned IPA**，不能直接當成一般 App 安裝。
-
-需要使用自己的 Apple ID 及簽署工具，例如：
+Release 提供的是 **unsigned IPA**，無法像 App Store App 一樣直接安裝。請使用自己的 Apple ID，透過下列其中一種合法簽署／側載工具安裝：
 
 - Sideloadly
 - iLoader
-- 其他合法的 iOS 側載／簽署工具
+- 其他支援 iOS IPA 的簽署工具
 
-使用免費 Apple Developer 帳號時，App 的簽署期限及 App ID 數量等限制由 Apple 的開發者機制決定。
+免費 Apple Developer 帳號的簽署期限、App ID 數量與重新簽署限制，均由 Apple 的開發者機制決定。
 
-### Windows 使用者
+### 3. 加入捷徑
 
-本專案可以在 Windows 上開發，並使用 **GitHub Actions 的 macOS Runner** 建立 unsigned IPA。
+安裝並開啟 App 後：
+
+1. 點擊 App 內的「新增捷徑」。
+2. 在 iCloud 捷徑頁加入「顯示 Dynamic Island 訊息」。
+3. 在「捷徑」App 中設定標題、訊息與通知圖示。
+4. 執行捷徑即可顯示 Dynamic Island 通知。
+
+也可以直接開啟：[加入 NotificationIsland 捷徑](https://www.icloud.com/shortcuts/c50df63435ea4f5f927447d1431173a1)
+
+## 🎬 使用畫面
+
+<p align="center">
+  <img src="./docs/media/notification-history.jpg" width="380" alt="NotificationIsland 設定與通知紀錄畫面" />
+</p>
+
+▶️ [點擊觀看 Dynamic Island 示範影片（MOV）](./docs/media/notification-island-demo.mov)
+
+## ✨ App 功能
+
+- **Dynamic Island 通知**：顯示自訂標題、訊息及 App 圖示。
+- **5 秒自動消失**：Live Activity 顯示約 5 秒後自動移除。
+- **即時覆蓋**：有新通知時立即移除舊的 Dynamic Island，顯示最新內容。
+- **顯示開關**：可關閉 Dynamic Island，只保存通知紀錄。
+- **通知紀錄**：保存標題、內容、圖示與時間，可刪除單筆或一次清除全部。
+- **自動清理**：可關閉自動刪除，或設定紀錄保留 1～365 天，預設為 7 天。
+- **多種通知圖示**：支援 LINE、Instagram、Gmail、訊息、Retro、Pikmin Bloom、Duolingo、投資先生、台新銀行、StressWatch、Reddit 與 Threads。
+- **點擊跳轉**：點擊 Live Activity 後，依所選圖示嘗試開啟對應 App。
+
+## 📱 系統需求
+
+- iOS 27 或以上版本
+- 建議使用支援 Dynamic Island 的 iPhone
+- 自行簽署 IPA 時需要 Apple ID 與相容的簽署工具
+
+## ⚠️ 使用限制
+
+NotificationIsland 是使用 SwiftUI、ActivityKit、WidgetKit、App Intents 與 Shortcuts 製作的實驗性專案，並非 LINE、Instagram、Gmail、Apple 或其他第三方服務的官方通知工具。
+
+本專案不能直接讀取其他 App 的私有系統通知。通知內容必須由使用者透過「捷徑」傳入：
 
 ```text
-Windows
-  ↓
-GitHub
-  ↓
-GitHub Actions / macOS Runner
-  ↓
-unsigned IPA
-  ↓
-Sideloadly / iLoader
-  ↓
-iPhone
+捷徑 → NotificationIsland → Live Activity → Dynamic Island
 ```
 
-## ⚠️ 目前限制
+點擊後能否開啟對應 App，會受到該 App 的 URL Scheme、Universal Link 與 iOS 系統限制影響。
 
-這是一個實驗性專案，並不是 LINE、Instagram、Gmail、Apple、Retro、Pikmin Bloom、Duolingo、投資先生、台新銀行或 StressWatch 官方推出的通知工具。
+## 🛠️ 從原始碼建置
 
-目前的 App 圖示只是用來模擬不同 App 的通知外觀。
+專案可在 Xcode 開啟 `NotificationIsland.xcodeproj` 建置。Windows 使用者也可 fork 專案，利用內建的 GitHub Actions macOS Runner 產生 unsigned IPA，再自行簽署安裝。
 
-本專案**不能直接讀取 LINE、Instagram、Gmail、Apple 訊息或其他第三方 App 的私有系統通知內容**。
-
-目前的使用方式是：
-
-```text
-捷徑
- ↓
-NotificationIsland
- ↓
-Live Activity
- ↓
-Dynamic Island
-```
-
-而不是：
-
-```text
-LINE / Instagram / Gmail 等 App 收到真正通知
- ↓
-NotificationIsland 自動讀取通知
- ↓
-Dynamic Island
-```
-
-後者需要 iOS 系統允許的通知／自動化機制，不能單純靠一般 App 的 App Intent 直接讀取其他 App 的私有通知資料。
-
-## 🛠️ 技術
-
-- Swift
-- SwiftUI
-- ActivityKit
-- WidgetKit
-- App Intents
-- Shortcuts
-- Live Activities
-
-## ⭐ Credits
-
-本專案主要使用 Apple 提供的 ActivityKit、WidgetKit、App Intents、SwiftUI 與 Shortcuts / App Intents 製作。
+主要技術：Swift、SwiftUI、ActivityKit、WidgetKit、App Intents、Shortcuts、Live Activities。
 
 ## 💖 贊助支援 (Sponsor)
 

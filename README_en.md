@@ -65,7 +65,11 @@ The behavior may vary depending on each app's URL Scheme, Universal Link support
 
 ## 🔗 Shortcut
 
-https://www.icloud.com/shortcuts/022b6230e2f149198026cb6d905cfaa1
+Tap **Add Shortcut** in the app, or open:
+
+https://www.icloud.com/shortcuts/c50df63435ea4f5f927447d1431173a1
+
+> This shortcut requires iOS 27 or later. Earlier versions show a compatibility warning and can take the user to Software Update.
 
 ## 📱 Requirements
 

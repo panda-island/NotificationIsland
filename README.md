@@ -67,7 +67,11 @@ Live Activity 會在啟動後約 **5 秒自動結束**。
 
 ## 🔗 捷徑
 
-https://www.icloud.com/shortcuts/7b62f41705b443ae96eff4c111fb9c37
+可以直接在 App 內點擊「新增捷徑」，或開啟：
+
+https://www.icloud.com/shortcuts/c50df63435ea4f5f927447d1431173a1
+
+> 此捷徑需要 iOS 27 或以上版本。較舊版本會先顯示提示，並可前往系統軟體更新頁。
 
 ## 📱 系統需求
 

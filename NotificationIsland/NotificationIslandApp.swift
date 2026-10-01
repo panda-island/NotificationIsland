@@ -90,6 +90,8 @@ struct ContentView: View {
 
         NavigationStack {
             List {
+                ShortcutInstallSection()
+
                 RetentionSettingsSection(
                     isEnabled: $model.isAutoDeleteEnabled,
                     retentionDays: $model.retentionDays
@@ -158,6 +160,84 @@ struct ContentView: View {
         }
         .onOpenURL { url in
             NotificationIslandApp.handleDeepLink(url)
+        }
+    }
+}
+
+private struct ShortcutInstallSection: View {
+    @Environment(\.openURL) private var openURL
+    @State private var isShowingUnsupportedAlert = false
+
+    private static let shortcutURL = URL(
+        string: "https://www.icloud.com/shortcuts/c50df63435ea4f5f927447d1431173a1"
+    )!
+
+    var body: some View {
+        Section {
+            Button {
+                addShortcut()
+            } label: {
+                HStack(spacing: 12) {
+                    Image(systemName: "square.stack.3d.up.fill")
+                        .font(.title3)
+                        .foregroundStyle(.blue)
+                        .frame(width: 32)
+                        .accessibilityHidden(true)
+
+                    VStack(alignment: .leading, spacing: 2) {
+                        Text("新增捷徑")
+                            .foregroundStyle(.primary)
+                        Text("加入「顯示 Dynamic Island 訊息」捷徑")
+                            .font(.caption)
+                            .foregroundStyle(.secondary)
+                    }
+
+                    Spacer(minLength: 8)
+
+                    Image(systemName: "arrow.up.right")
+                        .font(.caption.bold())
+                        .foregroundStyle(.secondary)
+                        .accessibilityHidden(true)
+                }
+            }
+            .accessibilityHint("開啟 iCloud 捷徑安裝頁")
+        } header: {
+            Text("捷徑")
+        } footer: {
+            Text("此捷徑需要 iOS 27 或以上版本。")
+        }
+        .alert("需要 iOS 27", isPresented: $isShowingUnsupportedAlert) {
+            Button("前往軟體更新") {
+                openSoftwareUpdate()
+            }
+            Button("取消", role: .cancel) { }
+        } message: {
+            Text("此捷徑只支援 iOS 27 或以上版本。是否前往「設定」檢查軟體更新？")
+        }
+    }
+
+    private func addShortcut() {
+        if #available(iOS 27.0, *) {
+            openURL(Self.shortcutURL)
+        } else {
+            isShowingUnsupportedAlert = true
+        }
+    }
+
+    private func openSoftwareUpdate() {
+        let softwareUpdateURL = URL(
+            string: "App-Prefs:root=General&path=SOFTWARE_UPDATE_LINK"
+        )!
+        let generalSettingsURL = URL(string: "App-Prefs:root=General")!
+        let appSettingsURL = URL(string: UIApplication.openSettingsURLString)!
+
+        UIApplication.shared.open(softwareUpdateURL) { didOpenSoftwareUpdate in
+            guard !didOpenSoftwareUpdate else { return }
+
+            UIApplication.shared.open(generalSettingsURL) { didOpenGeneralSettings in
+                guard !didOpenGeneralSettings else { return }
+                UIApplication.shared.open(appSettingsURL)
+            }
         }
     }
 }

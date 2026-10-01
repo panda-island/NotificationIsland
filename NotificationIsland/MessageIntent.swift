@@ -1,5 +1,6 @@
 import AppIntents
 import ActivityKit
+import UIKit
 
 enum NotificationIcon: String, AppEnum {
     case line
@@ -104,38 +105,83 @@ struct ShowMessageIntent: LiveActivityIntent {
             style: .standard
         )
 
-        // Don't keep the App Intent running during the five-second display period.
-        // Returning immediately lets a new Shortcut invocation end this activity
-        // and replace it without waiting for the previous notification to expire.
-        Task {
-            for tick in 0..<10 {
-                let updatedState = MessageActivityAttributes.ContentState(
-                    title: safeTitle,
-                    message: safeMessage,
-                    icon: icon.rawValue,
-                    tick: tick
-                )
-
-                await activity.update(
-                    ActivityContent(
-                        state: updatedState,
-                        staleDate: nil,
-                        relevanceScore: 100
-                    )
-                )
-
-                try? await Task.sleep(for: .milliseconds(500))
-            }
-
-            await activity.end(
-                ActivityContent(
-                    state: state,
-                    staleDate: nil
-                ),
-                dismissalPolicy: ActivityUIDismissalPolicy.immediate
-            )
-        }
+        // Keep only the short dismissal task alive after the intent returns.
+        // A UIKit background-task assertion prevents iOS from suspending the app
+        // before the five-second timer has a chance to end the Live Activity.
+        await LiveActivityDismissalTask.schedule(
+            activity: activity,
+            finalState: state
+        )
 
         return .result()
+    }
+}
+
+@MainActor
+private final class LiveActivityDismissalTask {
+    private let activity: Activity<MessageActivityAttributes>
+    private let finalState: MessageActivityAttributes.ContentState
+    private var backgroundTaskID: UIBackgroundTaskIdentifier = .invalid
+    private var dismissalTask: Task<Void, Never>?
+
+    private init(
+        activity: Activity<MessageActivityAttributes>,
+        finalState: MessageActivityAttributes.ContentState
+    ) {
+        self.activity = activity
+        self.finalState = finalState
+    }
+
+    static func schedule(
+        activity: Activity<MessageActivityAttributes>,
+        finalState: MessageActivityAttributes.ContentState
+    ) {
+        LiveActivityDismissalTask(
+            activity: activity,
+            finalState: finalState
+        ).start()
+    }
+
+    private func start() {
+        backgroundTaskID = UIApplication.shared.beginBackgroundTask(
+            withName: "Dismiss Dynamic Island"
+        ) { [weak self] in
+            self?.handleExpiration()
+        }
+
+        dismissalTask = Task { [self] in
+            do {
+                try await Task.sleep(for: .seconds(5))
+            } catch {
+                return
+            }
+
+            await dismissActivity()
+        }
+    }
+
+    private func handleExpiration() {
+        dismissalTask?.cancel()
+        dismissalTask = Task { [self] in
+            await dismissActivity()
+        }
+    }
+
+    private func dismissActivity() async {
+        await activity.end(
+            ActivityContent(
+                state: finalState,
+                staleDate: nil
+            ),
+            dismissalPolicy: ActivityUIDismissalPolicy.immediate
+        )
+        finishBackgroundTask()
+    }
+
+    private func finishBackgroundTask() {
+        guard backgroundTaskID != .invalid else { return }
+        UIApplication.shared.endBackgroundTask(backgroundTaskID)
+        backgroundTaskID = .invalid
+        dismissalTask = nil
     }
 }

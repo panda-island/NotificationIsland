@@ -23,6 +23,7 @@ struct NotificationRecord: Codable, Identifiable, Equatable, Sendable {
 struct NotificationHistorySnapshot: Equatable, Sendable {
     let records: [NotificationRecord]
     let retentionDays: Int
+    let showsLiveActivity: Bool
 }
 
 actor NotificationHistoryStore {
@@ -31,6 +32,7 @@ actor NotificationHistoryStore {
     private enum Keys {
         static let records = "notificationHistory.records"
         static let retentionDays = "notificationHistory.retentionDays"
+        static let showsLiveActivity = "notificationHistory.showsLiveActivity"
     }
 
     private let defaults = UserDefaults.standard
@@ -40,9 +42,13 @@ actor NotificationHistoryStore {
         if defaults.object(forKey: Keys.retentionDays) == nil {
             defaults.set(defaultRetentionDays, forKey: Keys.retentionDays)
         }
+        if defaults.object(forKey: Keys.showsLiveActivity) == nil {
+            defaults.set(true, forKey: Keys.showsLiveActivity)
+        }
     }
 
-    func record(title: String, message: String, icon: String, now: Date = Date()) {
+    @discardableResult
+    func record(title: String, message: String, icon: String, now: Date = Date()) -> Bool {
         var records = prunedRecords(from: loadRecords(), now: now)
         records.insert(
             NotificationRecord(
@@ -55,6 +61,7 @@ actor NotificationHistoryStore {
             at: 0
         )
         save(records)
+        return showsLiveActivity
     }
 
     func snapshot(now: Date = Date()) -> NotificationHistorySnapshot {
@@ -67,7 +74,8 @@ actor NotificationHistoryStore {
 
         return NotificationHistorySnapshot(
             records: records,
-            retentionDays: retentionDays
+            retentionDays: retentionDays,
+            showsLiveActivity: showsLiveActivity
         )
     }
 
@@ -76,16 +84,29 @@ actor NotificationHistoryStore {
         return snapshot(now: now)
     }
 
+    func setShowsLiveActivity(_ isEnabled: Bool, now: Date = Date()) -> NotificationHistorySnapshot {
+        defaults.set(isEnabled, forKey: Keys.showsLiveActivity)
+        return snapshot(now: now)
+    }
+
     func delete(id: NotificationRecord.ID, now: Date = Date()) -> NotificationHistorySnapshot {
         var records = prunedRecords(from: loadRecords(), now: now)
         records.removeAll { $0.id == id }
         save(records)
-        return NotificationHistorySnapshot(records: records, retentionDays: retentionDays)
+        return NotificationHistorySnapshot(
+            records: records,
+            retentionDays: retentionDays,
+            showsLiveActivity: showsLiveActivity
+        )
     }
 
     func clear() -> NotificationHistorySnapshot {
         save([])
-        return NotificationHistorySnapshot(records: [], retentionDays: retentionDays)
+        return NotificationHistorySnapshot(
+            records: [],
+            retentionDays: retentionDays,
+            showsLiveActivity: showsLiveActivity
+        )
     }
 
     private var retentionDays: Int {
@@ -93,6 +114,11 @@ actor NotificationHistoryStore {
             return defaultRetentionDays
         }
         return min(max(defaults.integer(forKey: Keys.retentionDays), 0), 365)
+    }
+
+    private var showsLiveActivity: Bool {
+        guard defaults.object(forKey: Keys.showsLiveActivity) != nil else { return true }
+        return defaults.bool(forKey: Keys.showsLiveActivity)
     }
 
     private func loadRecords() -> [NotificationRecord] {

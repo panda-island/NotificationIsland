@@ -65,12 +65,10 @@ struct ShowMessageIntent: LiveActivityIntent {
         let safeTitle = String(titleText.prefix(80))
         let safeMessage = String(message.prefix(300))
 
-        let attributes = MessageActivityAttributes(id: UUID().uuidString)
-        let state = MessageActivityAttributes.ContentState(
+        let shouldShowLiveActivity = await NotificationHistoryStore.shared.record(
             title: safeTitle,
             message: safeMessage,
-            icon: icon.rawValue,
-            tick: 0
+            icon: icon.rawValue
         )
 
         for old in Activity<MessageActivityAttributes>.activities {
@@ -84,6 +82,18 @@ struct ShowMessageIntent: LiveActivityIntent {
             )
         }
 
+        guard shouldShowLiveActivity else {
+            return .result()
+        }
+
+        let attributes = MessageActivityAttributes(id: UUID().uuidString)
+        let state = MessageActivityAttributes.ContentState(
+            title: safeTitle,
+            message: safeMessage,
+            icon: icon.rawValue,
+            tick: 0
+        )
+
         let activity = try Activity.request(
             attributes: attributes,
             content: ActivityContent(
@@ -92,12 +102,6 @@ struct ShowMessageIntent: LiveActivityIntent {
             ),
             pushType: nil,
             style: .standard
-        )
-
-        await NotificationHistoryStore.shared.record(
-            title: safeTitle,
-            message: safeMessage,
-            icon: icon.rawValue
         )
 
         // Don't keep the App Intent running during the five-second display period.

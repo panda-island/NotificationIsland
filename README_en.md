@@ -31,9 +31,10 @@ The Live Activity automatically ends after approximately **5 seconds**.
 
 ### Notification History
 
-After a Dynamic Island message is displayed successfully, the app automatically saves its title, message, icon, and timestamp.
+Whenever the Shortcut sends a message, the app automatically saves its title, message, icon, and timestamp.
 
 - View notification history in the app
+- Disable Dynamic Island presentation while continuing to save notification history
 - Swipe to delete an individual record
 - Clear all records at once
 - Enable or disable automatic deletion

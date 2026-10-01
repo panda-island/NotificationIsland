@@ -1,6 +1,7 @@
 import SwiftUI
 import UIKit
 import Observation
+import ActivityKit
 
 @main
 struct NotificationIslandApp: App {
@@ -92,6 +93,10 @@ struct ContentView: View {
             List {
                 ShortcutInstallSection()
 
+                DynamicIslandSettingsSection(
+                    isEnabled: $model.showsLiveActivity
+                )
+
                 RetentionSettingsSection(
                     isEnabled: $model.isAutoDeleteEnabled,
                     retentionDays: $model.retentionDays
@@ -153,6 +158,9 @@ struct ContentView: View {
         }
         .onChange(of: model.isAutoDeleteEnabled) { _, isEnabled in
             Task { await model.setAutoDeleteEnabled(isEnabled) }
+        }
+        .onChange(of: model.showsLiveActivity) { _, isEnabled in
+            Task { await model.setShowsLiveActivity(isEnabled) }
         }
         .onChange(of: model.retentionDays) { _, days in
             guard model.isAutoDeleteEnabled else { return }
@@ -246,6 +254,7 @@ private struct ShortcutInstallSection: View {
 @Observable
 final class NotificationHistoryModel {
     var records: [NotificationRecord] = []
+    var showsLiveActivity = true
     var isAutoDeleteEnabled = true
     var retentionDays = 7
 
@@ -264,6 +273,22 @@ final class NotificationHistoryModel {
         apply(await store.setRetentionDays(days))
     }
 
+    func setShowsLiveActivity(_ isEnabled: Bool) async {
+        apply(await store.setShowsLiveActivity(isEnabled))
+
+        guard !isEnabled else { return }
+        for activity in Activity<MessageActivityAttributes>.activities {
+            let content = ActivityContent(
+                state: activity.content.state,
+                staleDate: nil
+            )
+            await activity.end(
+                content,
+                dismissalPolicy: ActivityUIDismissalPolicy.immediate
+            )
+        }
+    }
+
     func delete(_ id: NotificationRecord.ID) async {
         apply(await store.delete(id: id))
     }
@@ -274,6 +299,7 @@ final class NotificationHistoryModel {
 
     private func apply(_ snapshot: NotificationHistorySnapshot) {
         records = snapshot.records
+        showsLiveActivity = snapshot.showsLiveActivity
 
         if snapshot.retentionDays > 0 {
             isAutoDeleteEnabled = true
@@ -281,6 +307,24 @@ final class NotificationHistoryModel {
         } else {
             isAutoDeleteEnabled = false
             retentionDays = max(retentionDays, 1)
+        }
+    }
+}
+
+private struct DynamicIslandSettingsSection: View {
+    @Binding var isEnabled: Bool
+
+    var body: some View {
+        Section {
+            Toggle("開啟動態島", isOn: $isEnabled)
+        } header: {
+            Text("顯示設定")
+        } footer: {
+            Text(
+                isEnabled
+                    ? "捷徑送來的新通知會顯示在 Dynamic Island，並保存到通知紀錄。"
+                    : "關閉後不會顯示 Dynamic Island，但通知仍會保存到紀錄。"
+            )
         }
     }
 }

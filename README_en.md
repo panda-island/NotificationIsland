@@ -9,7 +9,7 @@
 [繁體中文](./README.md) · [Download the latest IPA](https://github.com/panda-island/NotificationIsland/releases/latest) · [Add the Shortcut](https://www.icloud.com/shortcuts/c50df63435ea4f5f927447d1431173a1)
 
 > [!IMPORTANT]
-> NotificationIsland currently supports **iOS 27 or later** and is recommended for iPhones with Dynamic Island.
+> NotificationIsland currently supports **iOS 27 or later**. Dynamic Island hardware is only required to display Dynamic Island notifications; notification-history-only mode works on devices without Dynamic Island.
 
 ## 📲 Installation
 
@@ -44,14 +44,16 @@ You can also open it directly: [Add the NotificationIsland Shortcut](https://www
   <img src="./docs/media/notification-history.jpg" width="380" alt="NotificationIsland settings and notification history" />
 </p>
 
-▶️ [Watch the Dynamic Island demo video (MOV)](./docs/media/notification-island-demo.mov)
+<p align="center">
+  <img src="./docs/media/notification-island-demo.gif" width="720" alt="NotificationIsland Dynamic Island demonstration" />
+</p>
 
 ## ✨ App Features
 
 - **Dynamic Island notifications:** Display a custom title, message, and app icon.
 - **Automatic five-second dismissal:** The Live Activity is removed after approximately five seconds.
 - **Immediate replacement:** A new notification removes the previous Dynamic Island and displays the latest content.
-- **Display toggle:** Disable Dynamic Island while continuing to save notification history.
+- **Display toggle:** Disable Dynamic Island while continuing to save notification history; this mode does not require a device with Dynamic Island.
 - **Notification history:** Save titles, messages, icons, and timestamps; delete individual records or clear everything.
 - **Automatic cleanup:** Disable automatic deletion or retain records for 1–365 days; the default is seven days.
 - **Multiple notification icons:** LINE, Instagram, Gmail, Messages, Retro, Pikmin Bloom, Duolingo, Investment Master, Taishin Bank, StressWatch, Reddit, and Threads.
@@ -60,7 +62,8 @@ You can also open it directly: [Add the NotificationIsland Shortcut](https://www
 ## 📱 Requirements
 
 - iOS 27 or later
-- An iPhone with Dynamic Island is recommended
+- An iPhone with Dynamic Island is required only for Dynamic Island notifications
+- Notification-history-only mode works on devices without Dynamic Island
 - An Apple ID and compatible signing tool when installing the unsigned IPA
 
 ## ⚠️ Limitations

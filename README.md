@@ -9,7 +9,7 @@
 [English](./README_en.md) · [下載最新版 IPA](https://github.com/panda-island/NotificationIsland/releases/latest) · [加入捷徑](https://www.icloud.com/shortcuts/c50df63435ea4f5f927447d1431173a1)
 
 > [!IMPORTANT]
-> 目前支援 **iOS 27 或以上版本**，並建議使用配備 Dynamic Island 的 iPhone。
+> 目前支援 **iOS 27 或以上版本**。只有顯示 Dynamic Island 通知時才需要相容機型；如果只使用通知紀錄功能，裝置不需要支援 Dynamic Island。
 
 ## 📲 安裝教學
 
@@ -44,14 +44,16 @@ Release 提供的是 **unsigned IPA**，無法像 App Store App 一樣直接安�
   <img src="./docs/media/notification-history.jpg" width="380" alt="NotificationIsland 設定與通知紀錄畫面" />
 </p>
 
-▶️ [點擊觀看 Dynamic Island 示範影片（MOV）](./docs/media/notification-island-demo.mov)
+<p align="center">
+  <img src="./docs/media/notification-island-demo.gif" width="720" alt="NotificationIsland Dynamic Island 示範動畫" />
+</p>
 
 ## ✨ App 功能
 
 - **Dynamic Island 通知**：顯示自訂標題、訊息及 App 圖示。
 - **5 秒自動消失**：Live Activity 顯示約 5 秒後自動移除。
 - **即時覆蓋**：有新通知時立即移除舊的 Dynamic Island，顯示最新內容。
-- **顯示開關**：可關閉 Dynamic Island，只保存通知紀錄。
+- **顯示開關**：可關閉 Dynamic Island，只保存通知紀錄；此模式不需要支援 Dynamic Island 的裝置。
 - **通知紀錄**：保存標題、內容、圖示與時間，可刪除單筆或一次清除全部。
 - **自動清理**：可關閉自動刪除，或設定紀錄保留 1～365 天，預設為 7 天。
 - **多種通知圖示**：支援 LINE、Instagram、Gmail、訊息、Retro、Pikmin Bloom、Duolingo、投資先生、台新銀行、StressWatch、Reddit 與 Threads。
@@ -60,7 +62,8 @@ Release 提供的是 **unsigned IPA**，無法像 App Store App 一樣直接安�
 ## 📱 系統需求
 
 - iOS 27 或以上版本
-- 建議使用支援 Dynamic Island 的 iPhone
+- 顯示 Dynamic Island 通知時，需要支援 Dynamic Island 的 iPhone
+- 只使用通知紀錄功能時，不需要支援 Dynamic Island 的裝置
 - 自行簽署 IPA 時需要 Apple ID 與相容的簽署工具
 
 ## ⚠️ 使用限制

@@ -17,15 +17,48 @@
 
 Open [GitHub Releases](https://github.com/panda-island/NotificationIsland/releases/latest) and download the latest `NotificationIsland-unsigned.ipa`.
 
-### 2. Sign and install it
+### 2. Sign and sideload with iLoader
 
-The release contains an **unsigned IPA**, so it cannot be installed like an App Store app. Sign it with your own Apple ID using one of the following legitimate sideloading tools:
+The release contains an **unsigned IPA**, so it cannot be installed by simply tapping the file. The steps below use **iLoader**, a free and open-source sideloading companion for Windows, macOS, and Linux.
 
-- Sideloadly
-- iLoader
-- Another iOS-compatible IPA signing tool
+> [!WARNING]
+> iLoader uses your Apple ID to request a development signature from Apple. Download it only from the [official iLoader website](https://iloader.app/) or its [official GitHub repository](https://github.com/nab138/iloader). Do not use builds from unknown websites. iLoader and NotificationIsland are independent projects and are not officially affiliated.
 
-Signing duration, App ID limits, and re-signing requirements for free Apple Developer accounts are controlled by Apple's developer system.
+#### Prepare your computer
+
+1. Download `NotificationIsland-unsigned.ipa` from [NotificationIsland Releases](https://github.com/panda-island/NotificationIsland/releases/latest) and remember where it was saved.
+2. Download the latest build for your operating system from the [official iLoader download page](https://iloader.app/) or [iLoader GitHub Releases](https://github.com/nab138/iloader/releases/latest).
+3. On Windows, follow [Apple's official instructions to install iTunes or Apple Devices](https://support.apple.com/en-us/118290) so the computer has the components required to communicate with the iPhone. macOS includes the required components.
+4. Connect the unlocked iPhone with a USB data cable. If this is the first connection, tap **Trust** on the iPhone and enter the device passcode.
+
+#### Install NotificationIsland
+
+1. Open iLoader and make sure it detects your iPhone.
+2. Select **Import IPA**.
+3. Choose the downloaded `NotificationIsland-unsigned.ipa` file.
+4. Sign in with your Apple ID when prompted and complete two-factor authentication if enabled.
+5. Select an available development team/account, then start signing and installation. Keep the iPhone connected until iLoader reports completion.
+6. Return to the iPhone Home Screen and confirm that NotificationIsland is present.
+
+#### Before the first launch
+
+If iOS reports an untrusted developer or asks you to enable Developer Mode:
+
+1. Open **Settings → General → VPN & Device Management**, select the developer profile for your Apple ID, and tap **Trust**.
+2. If requested, open **Settings → Privacy & Security → Developer Mode**, enable it, restart the iPhone, and confirm again when prompted.
+3. Open NotificationIsland again.
+
+> [!NOTE]
+> Apps sideloaded with a free Apple Developer account usually need to be re-signed periodically and may be subject to installed-app and App ID limits. Apple controls the exact limits. If the app expires or stops opening, import the same IPA into iLoader and install it again. Installing over the existing app with the same Apple ID and bundle ID will usually preserve app data, but important records should still be backed up.
+
+#### Troubleshooting
+
+- **iLoader cannot find the iPhone:** Unlock it, reconnect USB, try a data-capable cable, and make sure you tapped **Trust**. On Windows, follow [Apple's instructions](https://support.apple.com/en-us/118290) to install or restart iTunes/Apple Devices and try again.
+- **Signing or installation fails:** Read iLoader's complete error and suggested fix. Use **View Logs** for more detail, then search or report the problem in [iLoader Issues](https://github.com/nab138/iloader/issues).
+- **App/App ID limit reached:** Remove sideloaded apps you no longer use, or wait for an existing App ID to expire.
+- **The installed app immediately refuses to open:** Trust the developer profile and enable Developer Mode. If its signature has expired, sideload it again.
+
+You may alternatively use [Sideloadly](https://sideloadly.io/) or another trusted signing tool that supports unsigned IPA files; its screens and steps will differ.
 
 ### 3. Add the Shortcut
 

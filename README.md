@@ -17,15 +17,48 @@
 
 前往 [GitHub Releases](https://github.com/panda-island/NotificationIsland/releases/latest)，下載最新版 `NotificationIsland-unsigned.ipa`。
 
-### 2. 簽署並安裝
+### 2. 使用 iLoader 簽署並側載
 
-Release 提供的是 **unsigned IPA**，無法像 App Store App 一樣直接安裝。請使用自己的 Apple ID，透過下列其中一種合法簽署／側載工具安裝：
+Release 提供的是 **unsigned IPA**，無法像 App Store App 一樣點一下直接安裝。以下以免費、開源且支援 Windows、macOS 與 Linux 的 **iLoader** 為例。
 
-- Sideloadly
-- iLoader
-- 其他支援 iOS IPA 的簽署工具
+> [!WARNING]
+> iLoader 會使用你的 Apple ID 向 Apple 申請開發用簽署。請只從 [iLoader 官方網站](https://iloader.app/) 或 [官方 GitHub 專案](https://github.com/nab138/iloader) 下載，不要使用來路不明的版本。iLoader 與 NotificationIsland 是彼此獨立的專案，並無官方隸屬或合作關係。
 
-免費 Apple Developer 帳號的簽署期限、App ID 數量與重新簽署限制，均由 Apple 的開發者機制決定。
+#### 電腦端準備
+
+1. 從 [NotificationIsland Releases](https://github.com/panda-island/NotificationIsland/releases/latest) 下載 `NotificationIsland-unsigned.ipa`，記住檔案存放位置。
+2. 前往 [iLoader 官方下載頁](https://iloader.app/) 下載適合電腦系統的最新版；也可以從 [iLoader GitHub Releases](https://github.com/nab138/iloader/releases/latest) 下載。
+3. Windows 使用者需先依照 [Apple 官方說明安裝 iTunes／Apple Devices](https://support.apple.com/zh-tw/118290)，讓電腦具備與 iPhone 通訊所需的元件；macOS 已內建相關元件。
+4. 使用 USB 傳輸線連接 iPhone，解鎖手機；首次連接時，請在 iPhone 上點擊「信任」並輸入裝置密碼。
+
+#### 安裝 NotificationIsland
+
+1. 開啟 iLoader，確認畫面中已辨識到你的 iPhone。
+2. 選擇 **Import IPA**（匯入 IPA）。
+3. 選取剛才下載的 `NotificationIsland-unsigned.ipa`。
+4. 依畫面指示登入 Apple ID；若帳號已啟用雙重認證，請完成驗證。
+5. 選擇可用的開發團隊／帳號，開始簽署與安裝。過程中請保持 iPhone 連線，直到 iLoader 顯示完成。
+6. 回到 iPhone 主畫面，確認已出現 NotificationIsland。
+
+#### 第一次開啟前
+
+如果點擊 App 時出現「不受信任的開發者」或要求開啟開發者模式：
+
+1. 前往「設定」→「一般」→「VPN 與裝置管理」，選擇你的 Apple ID 開發者描述檔並點擊「信任」。
+2. 若系統要求，前往「設定」→「隱私權與安全性」→「開發者模式」開啟功能，依提示重新啟動 iPhone 並再次確認。
+3. 重新開啟 NotificationIsland。
+
+> [!NOTE]
+> 使用免費 Apple Developer 帳號側載的 App 通常需要定期重新簽署，也可能受到可安裝 App 數量與 App ID 數量限制；實際限制由 Apple 決定。App 到期或無法開啟時，請在 iLoader 重新匯入同一個 IPA 並安裝。使用相同 Apple ID 與 Bundle ID 覆蓋安裝，通常可以保留 App 資料，但重要紀錄仍建議自行備份。
+
+#### 常見問題
+
+- **iLoader 找不到 iPhone：** 解鎖手機、重新插拔 USB、改用可傳輸資料的線材，並確認已在 iPhone 點擊「信任」。Windows 可依照 [Apple 官方說明](https://support.apple.com/zh-tw/118290) 安裝或重新啟動 iTunes／Apple Devices 後再試。
+- **簽署或安裝失敗：** 先查看 iLoader 顯示的完整錯誤與建議；也可開啟 **View Logs** 取得記錄，再到 [iLoader Issues](https://github.com/nab138/iloader/issues) 查詢。
+- **顯示已達 App ID／App 數量上限：** 移除不再使用的側載 App，或等候現有 App ID 到期後再試。
+- **App 安裝後立刻無法開啟：** 確認已信任開發者描述檔並開啟開發者模式；若簽署已過期，請重新側載。
+
+你也可以改用 [Sideloadly](https://sideloadly.io/) 或其他可信任、支援 unsigned IPA 的簽署工具；各工具畫面與步驟可能不同。
 
 ### 3. 加入捷徑
 
